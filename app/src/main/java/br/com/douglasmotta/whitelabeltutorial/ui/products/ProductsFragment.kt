@@ -52,5 +52,9 @@ class ProductsFragment : Fragment() {
         viewModel.productsData.observe(viewLifecycleOwner) { products ->
             productsAdapter.submitList(products)
         }
+
+        viewModel.addMutableVisibilityData.observe(viewLifecycleOwner) { visibility ->
+            binding.fabAdd.visibility = visibility
+        }
     }
 }
