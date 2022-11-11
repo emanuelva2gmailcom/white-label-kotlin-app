@@ -49,7 +49,7 @@ class ProductsFragment : Fragment() {
         super.onDestroyView()
     }
 
-    fun setRecyclerView() {
+    private fun setRecyclerView() {
         binding.recyclerProducts.run {
             setHasFixedSize(true)
             adapter = productsAdapter
