@@ -36,6 +36,10 @@ class ProductsAdapter(
                 textDescription.text = product.description
                 textPrice.text = product.price.toCurrency()
 
+                fabDel.visibility = viewModel.addMutableVisibilityData.value!!
+                fabUpdate.visibility = viewModel.addMutableVisibilityData.value!!
+
+
                 fabDel.setOnClickListener {
                     viewModel.deleteProduct(product.id)
                 }
