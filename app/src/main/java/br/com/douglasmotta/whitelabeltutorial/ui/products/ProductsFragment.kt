@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -23,7 +24,7 @@ class ProductsFragment : Fragment() {
 
     private val viewModel: ProductsViewModel by viewModels()
 
-    private val productsAdapter = ProductsAdapter()
+    private lateinit var productsAdapter: ProductsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +37,7 @@ class ProductsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setRecyclerView()
         setListeners()
         observeNavBackStack()
@@ -52,6 +54,7 @@ class ProductsFragment : Fragment() {
     private fun setRecyclerView() {
         binding.recyclerProducts.run {
             setHasFixedSize(true)
+            productsAdapter = ProductsAdapter(viewModel)
             adapter = productsAdapter
         }
     }
@@ -86,6 +89,10 @@ class ProductsFragment : Fragment() {
                     productsAdapter.submitList(newList)
                     binding.recyclerProducts.smoothScrollToPosition(newList.size - 1)
                     savedStateHandle.remove<Product>(PRODUCT_KEY)
+                } else if (
+                    event == Lifecycle.Event.ON_RESUME && savedStateHandle.contains("refresh")
+                ) {
+                    getProducts()
                 }
             }
             navBackStackEntry.lifecycle.addObserver(observer)
@@ -108,6 +115,25 @@ class ProductsFragment : Fragment() {
             binding.fabAdd.visibility = visibility
         }
 
-        viewModel
+        viewModel.deleteIdData.observe(viewLifecycleOwner) { id ->
+            val oldList = productsAdapter.currentList
+            val newList = oldList.toMutableList()
+
+            newList.remove(oldList.first {
+                it.id == id
+            })
+
+            productsAdapter.submitList(newList)
+
+        }
+
+        viewModel.mutableUpdateProductData.observe(viewLifecycleOwner) { product ->
+            findNavController().run {
+                navigate(
+                    ProductsFragmentDirections
+                        .actionProductsFragmentToUpdateProductFragment(product)
+                )
+            }
+        }
     }
 }

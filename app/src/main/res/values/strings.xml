@@ -1,6 +1,8 @@
 <resources>
     <!-- ProductsFragment -->
     <string name="products_fab_add_product">Add product</string>
+    <string name="products_fab_update_product">Edit product</string>
+    <string name="products_fab_delete_product">Delete product</string>
 
     <!-- AddProductFragment -->
     <string name="add_product_screen_title">Add Product</string>
@@ -8,4 +10,11 @@
     <string name="add_product_field_price_hint">Price</string>
     <string name="add_product_field_error">Mandatory field</string>
     <string name="add_product_button_add_product">Add</string>
+
+    <!-- UpdateProductFragment -->
+    <string name="update_product_screen_title">Edit Product</string>
+    <string name="update_product_field_description_hint">Description</string>
+    <string name="update_product_field_price_hint">Price</string>
+    <string name="update_product_field_error">Mandatory field</string>
+    <string name="update_product_button_add_product">Add</string>
 </resources>

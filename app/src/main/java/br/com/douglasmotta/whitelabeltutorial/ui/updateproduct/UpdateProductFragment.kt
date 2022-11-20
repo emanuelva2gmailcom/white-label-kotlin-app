@@ -1,4 +1,4 @@
-package br.com.douglasmotta.whitelabeltutorial.ui.addproduct
+package br.com.douglasmotta.whitelabeltutorial.ui.updateproduct
 
 import android.net.Uri
 import android.os.Bundle
@@ -7,22 +7,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import br.com.douglasmotta.whitelabeltutorial.databinding.FragmentAddProductBinding
+import androidx.navigation.fragment.navArgs
+import br.com.douglasmotta.whitelabeltutorial.databinding.FragmentUpdateProductBinding
+import br.com.douglasmotta.whitelabeltutorial.domain.model.Product
 import br.com.douglasmotta.whitelabeltutorial.util.CurrencyTextWatcher
 import br.com.douglasmotta.whitelabeltutorial.util.PRODUCT_KEY
+import br.com.douglasmotta.whitelabeltutorial.util.toCurrency
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AddProductFragment : BottomSheetDialogFragment() {
+class UpdateProductFragment : BottomSheetDialogFragment() {
 
-    private var _binding: FragmentAddProductBinding? = null
+    private var _binding: FragmentUpdateProductBinding? = null
     private val binding get() = _binding!!
 
     private var imageuri: Uri? = null
+
+    private val productArgs: UpdateProductFragmentArgs by navArgs()
+    private var productActive: Product? = null
 
     private val getContent =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
@@ -30,19 +38,21 @@ class AddProductFragment : BottomSheetDialogFragment() {
             binding.imageProduct.setImageURI(uri)
         }
 
-    private val viewModel: AddProductViewModel by viewModels()
+    private val viewModel: UpdateProductViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentAddProductBinding.inflate(inflater, container, false)
+    ): View {
+        _binding = FragmentUpdateProductBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(null, "add product")
+
+        productActive = productArgs.productDataArgs
+        setValues(productActive!!)
         observeVMEvents()
         setListeners()
     }
@@ -60,11 +70,23 @@ class AddProductFragment : BottomSheetDialogFragment() {
             binding.inputLayoutPrice.setError(stringResId)
         }
 
-        viewModel.productCreated.observe(viewLifecycleOwner) { product ->
-            findNavController().run{
-                previousBackStackEntry?.savedStateHandle?.set(PRODUCT_KEY, product)
+        viewModel.productUpdated.observe(viewLifecycleOwner) { product ->
+            findNavController().run {
+                previousBackStackEntry?.savedStateHandle?.set("refresh", product)
                 popBackStack()
             }
+        }
+    }
+
+    private fun setValues(product: Product) {
+        binding.run {
+            Glide.with(requireView())
+                .load(product.imageUrl)
+                .fitCenter()
+                .into(imageProduct)
+
+            inputDescription.setText(product.description)
+            inputPrice.setText(product.price.toCurrency())
         }
     }
 
@@ -79,11 +101,10 @@ class AddProductFragment : BottomSheetDialogFragment() {
             chooseImage()
         }
 
-        binding.buttonAddProduct.setOnClickListener {
+        binding.buttonUpdateProduct.setOnClickListener {
             val description = binding.inputDescription.text.toString()
             val price = binding.inputPrice.text.toString()
-
-            viewModel.createProduct(description, price, imageuri!!)
+            viewModel.updateProduct(productActive!!.id, description, price, imageuri)
         }
 
         binding.inputPrice.run {

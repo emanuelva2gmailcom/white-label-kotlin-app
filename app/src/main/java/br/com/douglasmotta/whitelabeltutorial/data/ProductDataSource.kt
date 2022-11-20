@@ -11,4 +11,8 @@ interface ProductDataSource {
 
     suspend fun createProduct(product: Product): Product
 
+    suspend fun deleteProduct(id: String): Boolean
+
+    suspend fun updateProduct(product: Product): Product
+
 }

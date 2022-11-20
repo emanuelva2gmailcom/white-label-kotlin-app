@@ -10,21 +10,23 @@ import br.com.douglasmotta.whitelabeltutorial.domain.model.Product
 import br.com.douglasmotta.whitelabeltutorial.util.toCurrency
 import com.bumptech.glide.Glide
 
-class ProductsAdapter : ListAdapter<Product, ProductsAdapter.ProductsViewHolder>(DIFF_CALLBACK) {
+class ProductsAdapter(
+    private val viewModel: ProductsViewModel
+) : ListAdapter<Product, ProductsAdapter.ProductsViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductsViewHolder {
         return ProductsViewHolder.create(parent)
     }
 
     override fun onBindViewHolder(holder: ProductsViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), viewModel)
     }
 
     class ProductsViewHolder(
         private val itemBinding: ItemProductBinding
     ) : RecyclerView.ViewHolder(itemBinding.root) {
 
-        fun bind(product:Product) {
+        fun bind(product: Product, viewModel: ProductsViewModel) {
             itemBinding.run {
                 Glide.with(itemView)
                     .load(product.imageUrl)
@@ -33,6 +35,14 @@ class ProductsAdapter : ListAdapter<Product, ProductsAdapter.ProductsViewHolder>
 
                 textDescription.text = product.description
                 textPrice.text = product.price.toCurrency()
+
+                fabDel.setOnClickListener {
+                    viewModel.deleteProduct(product.id)
+                }
+
+                fabUpdate.setOnClickListener {
+                    viewModel.mutableUpdateProductData.value = product
+                }
             }
         }
 
@@ -63,5 +73,6 @@ class ProductsAdapter : ListAdapter<Product, ProductsAdapter.ProductsViewHolder>
                 return oldItem == newItem
             }
         }
+
     }
 }

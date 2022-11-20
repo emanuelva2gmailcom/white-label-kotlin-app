@@ -14,4 +14,8 @@ class ProductRepository @Inject constructor(
 
     suspend fun createProduct(product: Product): Product = dataSource.createProduct(product)
 
+    suspend fun deleteProduct(id: String): Boolean = dataSource.deleteProduct(id)
+
+    suspend fun updateProduct(product: Product): Product = dataSource.updateProduct(product)
+
 }

@@ -18,4 +18,10 @@ interface DomainModule {
 
     @Binds
     fun bindUploadImageUseCase(useCase: UploadProductImageUseCaseImpl): UploadProductImageUseCase
+
+    @Binds
+    fun bindDeleteProductUseCase(useCase: DeleteProductUseCaseImpl): DeleteProductUseCase
+
+    @Binds
+    fun bindUpdateProductUseCase(useCase: UpdateProductUseCaseImpl): UpdateProductUseCase
 }

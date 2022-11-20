@@ -1,6 +1,7 @@
 package br.com.douglasmotta.whitelabeltutorial.data
 
 import android.net.Uri
+import android.util.Log
 import br.com.douglasmotta.whitelabeltutorial.BuildConfig
 import br.com.douglasmotta.whitelabeltutorial.domain.model.Product
 import br.com.douglasmotta.whitelabeltutorial.util.COLLECTION_PRODUCTS
@@ -27,8 +28,8 @@ class FirebaseProductDataSource @Inject constructor(
             val productsReference = documentReference.collection(COLLECTION_PRODUCTS)
             productsReference.get().addOnSuccessListener { documents ->
                 val products = mutableListOf<Product>()
-                for (docuemnt in documents) {
-                    docuemnt.toObject(Product::class.java).run {
+                for (document in documents) {
+                    document.toObject(Product::class.java).run {
                         products.add(this)
                     }
                 }
@@ -68,6 +69,58 @@ class FirebaseProductDataSource @Inject constructor(
                 .set(product)
                 .addOnSuccessListener {
                     continuation.resumeWith(Result.success(product))
+                }
+                .addOnFailureListener { exception ->
+                    continuation.resumeWith(Result.failure(exception))
+                }
+        }
+    }
+
+    override suspend fun deleteProduct(id: String): Boolean {
+        return suspendCoroutine { continuation ->
+            documentReference
+                .collection(COLLECTION_PRODUCTS)
+                .whereEqualTo("id", id)
+                .get()
+                .addOnSuccessListener { documents ->
+                    documentReference
+                        .collection(COLLECTION_PRODUCTS)
+                        .document(documents.first().reference.id)
+                        .delete()
+                        .addOnSuccessListener {
+                            continuation.resumeWith(Result.success(true))
+                        }
+                        .addOnFailureListener { exception ->
+                            continuation.resumeWith(Result.failure(exception))
+                        }
+                }
+                .addOnFailureListener { exception ->
+                    continuation.resumeWith(Result.failure(exception))
+                }
+        }
+    }
+
+    override suspend fun updateProduct(product: Product): Product {
+        return suspendCoroutine { continuation ->
+            documentReference
+                .collection(COLLECTION_PRODUCTS)
+                .whereEqualTo("id", product.id)
+                .get()
+                .addOnSuccessListener { documents ->
+                    Log.d(null, documents.first().reference.path)
+                    if (product.imageUrl.isEmpty()) {
+                        product.imageUrl = documents.first().get("image_url").toString()
+                    }
+                    documentReference
+                        .collection(COLLECTION_PRODUCTS)
+                        .document(documents.first().reference.id)
+                        .set(product)
+                        .addOnSuccessListener {
+                            continuation.resumeWith(Result.success(product))
+                        }
+                        .addOnFailureListener { exception ->
+                            continuation.resumeWith(Result.failure(exception))
+                        }
                 }
                 .addOnFailureListener { exception ->
                     continuation.resumeWith(Result.failure(exception))

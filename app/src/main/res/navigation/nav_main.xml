@@ -14,10 +14,22 @@
         <action
             android:id="@+id/action_productsFragment_to_addProductFragment"
             app:destination="@id/addProductFragment" />
+        <action
+            android:id="@+id/action_productsFragment_to_updateProductFragment"
+            app:destination="@id/updateProductFragment" />
     </fragment>
     <dialog
         android:id="@+id/addProductFragment"
         android:name="br.com.douglasmotta.whitelabeltutorial.ui.addproduct.AddProductFragment"
         android:label="@string/add_product_screen_title"
         tools:layout="@layout/fragment_add_product" />
+    <dialog
+        android:id="@+id/updateProductFragment"
+        android:name="br.com.douglasmotta.whitelabeltutorial.ui.updateproduct.UpdateProductFragment"
+        android:label="@string/update_product_screen_title"
+        tools:layout="@layout/fragment_update_product" >
+        <argument
+            android:name="productDataArgs"
+            app:argType="br.com.douglasmotta.whitelabeltutorial.domain.model.Product" />
+    </dialog>
 </navigation>
