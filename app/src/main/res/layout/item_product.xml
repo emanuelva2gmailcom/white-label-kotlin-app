@@ -23,20 +23,20 @@
         android:id="@+id/fab_del"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/products_fab_add_product"
+        android:contentDescription="@string/products_fab_delete_product"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_add" />
+        app:srcCompat="@drawable/ic_delete" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_update"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:contentDescription="@string/products_fab_add_product"
+        android:contentDescription="@string/products_fab_update_product"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fab_del"
-        app:srcCompat="@drawable/ic_add" />
+        app:srcCompat="@drawable/ic_edit" />
 
     <TextView
         android:id="@+id/text_description"
