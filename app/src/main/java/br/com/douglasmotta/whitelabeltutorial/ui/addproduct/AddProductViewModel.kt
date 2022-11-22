@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.douglasmotta.whitelabeltutorial.R
 import br.com.douglasmotta.whitelabeltutorial.domain.model.Product
-import br.com.douglasmotta.whitelabeltutorial.domain.usecase.CreateProductUseCase
+import br.com.douglasmotta.whitelabeltutorial.domain.usecase.product.CreateProductUseCase
 import br.com.douglasmotta.whitelabeltutorial.util.fromCurrency
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

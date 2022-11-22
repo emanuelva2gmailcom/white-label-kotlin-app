@@ -1,11 +1,10 @@
-package br.com.douglasmotta.whitelabeltutorial.domain.usecase
+package br.com.douglasmotta.whitelabeltutorial.domain.usecase.product
 
 import android.net.Uri
 import android.util.Log
 import br.com.douglasmotta.whitelabeltutorial.data.ProductRepository
 import br.com.douglasmotta.whitelabeltutorial.domain.model.Product
 import java.lang.Exception
-import java.util.*
 import javax.inject.Inject
 
 class UpdateProductUseCaseImpl @Inject constructor(

@@ -3,6 +3,7 @@
     <string name="products_fab_add_product">Add product</string>
     <string name="products_fab_update_product">Edit product</string>
     <string name="products_fab_delete_product">Delete product</string>
+    <string name="link_list_of_product">Show all products</string>
 
     <!-- AddProductFragment -->
     <string name="add_product_screen_title">Add Product</string>
@@ -19,5 +20,16 @@
     <string name="update_product_button_update_product">Edit</string>
 
     <!-- Delete -->
+
+    <!-- Authentication -->
+    <string name="sign_in_screen_title">Login Page</string>
+    <string name="sign_in_title">LOGIN</string>
+    <string name="sign_up_screen_title">Register Page</string>
+    <string name="sign_up_title">REGISTER</string>
+    <string name="sign_out_title">LOGOUT</string>
+
+    <string name="auth_field_email_hint">Email</string>
+    <string name="auth_field_password_hint">Password</string>
+
 
 </resources>

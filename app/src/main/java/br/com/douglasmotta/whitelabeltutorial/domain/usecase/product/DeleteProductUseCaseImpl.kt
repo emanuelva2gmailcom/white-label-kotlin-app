@@ -1,4 +1,4 @@
-package br.com.douglasmotta.whitelabeltutorial.domain.usecase
+package br.com.douglasmotta.whitelabeltutorial.domain.usecase.product
 
 import br.com.douglasmotta.whitelabeltutorial.data.ProductRepository
 import javax.inject.Inject

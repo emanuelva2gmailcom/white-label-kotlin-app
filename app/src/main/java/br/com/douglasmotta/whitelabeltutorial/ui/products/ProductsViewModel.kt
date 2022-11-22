@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.douglasmotta.whitelabeltutorial.config.Config
 import br.com.douglasmotta.whitelabeltutorial.domain.model.Product
-import br.com.douglasmotta.whitelabeltutorial.domain.usecase.DeleteProductUseCase
-import br.com.douglasmotta.whitelabeltutorial.domain.usecase.GetProductUseCase
+import br.com.douglasmotta.whitelabeltutorial.domain.usecase.product.DeleteProductUseCase
+import br.com.douglasmotta.whitelabeltutorial.domain.usecase.product.GetProductUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.Exception
