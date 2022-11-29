@@ -1,4 +1,4 @@
-package br.com.douglasmotta.whitelabeltutorial.data
+package br.com.douglasmotta.whitelabeltutorial.api.datasource.product
 
 import android.net.Uri
 import br.com.douglasmotta.whitelabeltutorial.domain.model.Product

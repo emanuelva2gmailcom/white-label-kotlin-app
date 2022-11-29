@@ -5,5 +5,5 @@ import com.google.firebase.auth.AuthResult
 
 interface SignUpUseCase {
 
-    operator fun invoke(email: String, password: String): Task<AuthResult>
+    operator fun invoke(email: String, password: String)
 }

@@ -1,4 +1,4 @@
-package br.com.douglasmotta.whitelabeltutorial.data.di
+package br.com.douglasmotta.whitelabeltutorial.api.di
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore

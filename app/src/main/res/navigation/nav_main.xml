@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/signInFragment">
-
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/productsFragment"
@@ -33,27 +32,6 @@
             app:argType="br.com.douglasmotta.whitelabeltutorial.domain.model.Product" />
     </dialog>
     <fragment
-        android:id="@+id/signUpFragment"
-        android:name="br.com.douglasmotta.whitelabeltutorial.ui.auth.signUp.SignUpFragment"
-        android:label="@string/products_screen_title"
-        tools:layout="@layout/fragment_sign_up" >
-        <action
-            android:id="@+id/action_signUpFragment_to_SignIn"
-            app:destination="@id/signInFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/signInFragment"
-        android:name="br.com.douglasmotta.whitelabeltutorial.ui.auth.signIn.SignInFragment"
-        android:label="@string/products_screen_title"
-        tools:layout="@layout/fragment_sign_in" >
-        <action
-            android:id="@+id/action_SignInFragment_to_HomeFragment"
-            app:destination="@+id/homeFragment" />
-        <action
-            android:id="@+id/action_SignInFragment_to_SignUpFragment"
-            app:destination="@+id/signUpFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/homeFragment"
         android:name="br.com.douglasmotta.whitelabeltutorial.ui.home.HomeFragment"
         android:label="@string/products_screen_title"
@@ -61,8 +39,5 @@
         <action
             android:id="@+id/action_HomeFragment_to_ProductsFragment"
             app:destination="@+id/productsFragment" />
-        <action
-            android:id="@+id/action_HomeFragment_to_SignInFragment"
-            app:destination="@+id/signInFragment"/>
     </fragment>
 </navigation>

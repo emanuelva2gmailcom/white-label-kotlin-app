@@ -1,7 +1,7 @@
-package br.com.douglasmotta.whitelabeltutorial.data.di
+package br.com.douglasmotta.whitelabeltutorial.api.di
 
-import br.com.douglasmotta.whitelabeltutorial.data.AuthService
-import br.com.douglasmotta.whitelabeltutorial.data.FirebaseAuthService
+import br.com.douglasmotta.whitelabeltutorial.api.auth.AuthService
+import br.com.douglasmotta.whitelabeltutorial.api.auth.FirebaseAuthService
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -1,4 +1,4 @@
-package br.com.douglasmotta.whitelabeltutorial.data
+package br.com.douglasmotta.whitelabeltutorial.api.datasource.product
 
 import android.net.Uri
 import android.util.Log
@@ -8,6 +8,7 @@ import br.com.douglasmotta.whitelabeltutorial.util.COLLECTION_PRODUCTS
 import br.com.douglasmotta.whitelabeltutorial.util.COLLECTION_ROOT
 import br.com.douglasmotta.whitelabeltutorial.util.STORAGE_IMAGES
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.storage.FirebaseStorage
 import java.util.*
 import javax.inject.Inject

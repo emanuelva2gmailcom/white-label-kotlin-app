@@ -1,6 +1,6 @@
 package br.com.douglasmotta.whitelabeltutorial.domain.usecase.product
 
-import br.com.douglasmotta.whitelabeltutorial.data.ProductRepository
+import br.com.douglasmotta.whitelabeltutorial.api.datasource.product.ProductRepository
 import javax.inject.Inject
 
 class DeleteProductUseCaseImpl @Inject constructor(

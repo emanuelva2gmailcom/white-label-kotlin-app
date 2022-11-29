@@ -25,4 +25,8 @@
     <style name="Text.Secondary">
         <item name="android:textColor">?attr/colorPrimary</item>
     </style>
+
+    <style name="Text.LightPrimary">
+        <item name="android:textColor">?attr/colorPrimaryVariant</item>
+    </style>
 </resources>

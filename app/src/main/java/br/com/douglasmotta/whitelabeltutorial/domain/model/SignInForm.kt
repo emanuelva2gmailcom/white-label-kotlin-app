@@ -4,10 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class User(
-    val uid: String,
+data class SignInForm(
     val email: String,
-    val name: String = "Desconhecido",
-    val admin: Boolean = false,
-    val bio: String = "Sem descrição"
+    val password: String,
 ) : Parcelable

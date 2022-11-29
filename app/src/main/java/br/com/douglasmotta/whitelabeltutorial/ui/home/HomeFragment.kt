@@ -1,5 +1,6 @@
 package br.com.douglasmotta.whitelabeltutorial.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import br.com.douglasmotta.whitelabeltutorial.R
 import br.com.douglasmotta.whitelabeltutorial.databinding.FragmentHomeBinding
+import br.com.douglasmotta.whitelabeltutorial.ui.MainActivity
+import br.com.douglasmotta.whitelabeltutorial.ui.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -48,7 +51,8 @@ class HomeFragment : Fragment() {
 
             buttonLogout.setOnClickListener {
                 viewModel.logout()
-                findNavController().navigate(R.id.action_HomeFragment_to_SignInFragment)
+                val intent = Intent(context, LoginActivity::class.java)
+                startActivity(intent)
             }
         }
     }
