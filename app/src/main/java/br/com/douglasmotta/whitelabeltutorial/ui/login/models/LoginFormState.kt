@@ -1,4 +1,4 @@
-package br.com.douglasmotta.whitelabeltutorial.ui.login
+package br.com.douglasmotta.whitelabeltutorial.ui.login.models
 
 /**
  * Data validation state of the login form.

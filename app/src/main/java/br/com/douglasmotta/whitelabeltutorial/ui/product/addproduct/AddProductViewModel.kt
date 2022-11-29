@@ -1,4 +1,4 @@
-package br.com.douglasmotta.whitelabeltutorial.ui.addproduct
+package br.com.douglasmotta.whitelabeltutorial.ui.product.addproduct
 
 import android.net.Uri
 import android.util.Log

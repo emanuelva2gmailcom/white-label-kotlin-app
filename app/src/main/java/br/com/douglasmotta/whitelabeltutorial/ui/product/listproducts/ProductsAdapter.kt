@@ -1,4 +1,4 @@
-package br.com.douglasmotta.whitelabeltutorial.ui.products
+package br.com.douglasmotta.whitelabeltutorial.ui.product.listproducts
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

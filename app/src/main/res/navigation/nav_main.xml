@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/productsFragment">
 
     <fragment
         android:id="@+id/productsFragment"
-        android:name="br.com.douglasmotta.whitelabeltutorial.ui.products.ProductsFragment"
+        android:name="br.com.douglasmotta.whitelabeltutorial.ui.product.listproducts.ProductsFragment"
         android:label="@string/products_screen_title"
         tools:layout="@layout/fragment_products" >
         <action
@@ -19,25 +19,16 @@
     </fragment>
     <dialog
         android:id="@+id/addProductFragment"
-        android:name="br.com.douglasmotta.whitelabeltutorial.ui.addproduct.AddProductFragment"
+        android:name="br.com.douglasmotta.whitelabeltutorial.ui.product.addproduct.AddProductFragment"
         android:label="@string/add_product_screen_title"
         tools:layout="@layout/fragment_add_product" />
     <dialog
         android:id="@+id/updateProductFragment"
-        android:name="br.com.douglasmotta.whitelabeltutorial.ui.updateproduct.UpdateProductFragment"
+        android:name="br.com.douglasmotta.whitelabeltutorial.ui.product.updateproduct.UpdateProductFragment"
         android:label="@string/update_product_screen_title"
         tools:layout="@layout/fragment_update_product" >
         <argument
             android:name="productDataArgs"
             app:argType="br.com.douglasmotta.whitelabeltutorial.domain.model.Product" />
     </dialog>
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="br.com.douglasmotta.whitelabeltutorial.ui.home.HomeFragment"
-        android:label="@string/products_screen_title"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_HomeFragment_to_ProductsFragment"
-            app:destination="@+id/productsFragment" />
-    </fragment>
 </navigation>

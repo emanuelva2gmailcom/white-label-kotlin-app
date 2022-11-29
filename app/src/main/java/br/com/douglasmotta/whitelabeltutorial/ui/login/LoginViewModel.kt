@@ -1,6 +1,5 @@
 package br.com.douglasmotta.whitelabeltutorial.ui.login
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +9,9 @@ import br.com.douglasmotta.whitelabeltutorial.api.auth.LoginRepository
 import br.com.douglasmotta.whitelabeltutorial.api.auth.Result
 
 import br.com.douglasmotta.whitelabeltutorial.R
+import br.com.douglasmotta.whitelabeltutorial.ui.login.models.LoggedInUserView
+import br.com.douglasmotta.whitelabeltutorial.ui.login.models.LoginFormState
+import br.com.douglasmotta.whitelabeltutorial.ui.login.models.LoginResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

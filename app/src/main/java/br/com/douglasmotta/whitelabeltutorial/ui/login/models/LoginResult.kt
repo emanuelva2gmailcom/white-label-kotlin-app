@@ -1,4 +1,4 @@
-package br.com.douglasmotta.whitelabeltutorial.ui.login
+package br.com.douglasmotta.whitelabeltutorial.ui.login.models
 
 /**
  * Authentication result : success (user details) or error message.

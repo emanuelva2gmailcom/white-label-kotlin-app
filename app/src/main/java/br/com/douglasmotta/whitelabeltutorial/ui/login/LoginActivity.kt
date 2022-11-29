@@ -3,7 +3,6 @@ package br.com.douglasmotta.whitelabeltutorial.ui.login
 import android.app.Activity
 import android.content.Intent
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +15,8 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import br.com.douglasmotta.whitelabeltutorial.R
 import br.com.douglasmotta.whitelabeltutorial.databinding.ActivityLoginBinding
-import br.com.douglasmotta.whitelabeltutorial.ui.MainActivity
+import br.com.douglasmotta.whitelabeltutorial.ui.home.HomeActivity
+import br.com.douglasmotta.whitelabeltutorial.ui.login.models.LoggedInUserView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -66,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
 
             //Complete and destroy login activity once successful
             finish()
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this@LoginActivity, HomeActivity::class.java)
             startActivity(intent)
         })
 
@@ -112,8 +112,6 @@ class LoginActivity : AppCompatActivity() {
             "$welcome $displayName",
             Toast.LENGTH_LONG
         ).show()
-
-
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
