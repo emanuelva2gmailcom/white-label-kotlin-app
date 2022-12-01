@@ -15,8 +15,8 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import br.com.douglasmotta.whitelabeltutorial.R
 import br.com.douglasmotta.whitelabeltutorial.databinding.ActivityLoginBinding
-import br.com.douglasmotta.whitelabeltutorial.ui.home.HomeActivity
 import br.com.douglasmotta.whitelabeltutorial.ui.login.models.LoggedInUserView
+import br.com.douglasmotta.whitelabeltutorial.ui.product.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -66,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
 
             //Complete and destroy login activity once successful
             finish()
-            val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+            val intent = Intent(this@LoginActivity, MainActivity::class.java)
             startActivity(intent)
         })
 
@@ -106,7 +106,7 @@ class LoginActivity : AppCompatActivity() {
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome)
         val displayName = model.displayName
-        // TODO : initiate successful logged in experience
+            // TODO : améliorer l'experience de "Logged in" pour l'utilisateur.
         Toast.makeText(
             applicationContext,
             "$welcome $displayName",

@@ -27,6 +27,20 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         appBarConfiguration = AppBarConfiguration(navController.graph)
 
+        replaceFragment(R.id.homeFragment)
+        binding.bottomNavigationView.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.home_navitem -> replaceFragment(R.id.homeFragment)
+                R.id.products_navitem -> replaceFragment(R.id.productsFragment)
+                R.id.settings_navitem -> replaceFragment(R.id.settingsFragment)
+            }
+            true
+        }
+
         binding.toolbarMain.setupWithNavController(navController, appBarConfiguration)
+    }
+
+    private fun replaceFragment(fragmentId: Int) {
+        navController.navigate(fragmentId)
     }
 }

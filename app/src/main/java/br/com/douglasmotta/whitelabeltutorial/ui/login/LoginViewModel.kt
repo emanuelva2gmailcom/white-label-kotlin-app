@@ -5,10 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
 import androidx.lifecycle.viewModelScope
-import br.com.douglasmotta.whitelabeltutorial.api.auth.LoginRepository
 import br.com.douglasmotta.whitelabeltutorial.api.auth.Result
 
 import br.com.douglasmotta.whitelabeltutorial.R
+import br.com.douglasmotta.whitelabeltutorial.domain.usecase.auth.SignInUseCase
 import br.com.douglasmotta.whitelabeltutorial.ui.login.models.LoggedInUserView
 import br.com.douglasmotta.whitelabeltutorial.ui.login.models.LoginFormState
 import br.com.douglasmotta.whitelabeltutorial.ui.login.models.LoginResult
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginRepository: LoginRepository
+    private val signInUseCase: SignInUseCase
 ) : ViewModel() {
 
     private val _loginForm = MutableLiveData<LoginFormState>()
@@ -29,7 +29,7 @@ class LoginViewModel @Inject constructor(
 
     fun login(username: String, password: String) = viewModelScope.launch {
 
-        val result = loginRepository.login(username, password)
+        val result = signInUseCase(username, password)
 
         if (result is Result.Success) {
             _loginResult.value =
