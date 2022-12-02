@@ -24,4 +24,10 @@ interface DomainProductModule {
 
     @Binds
     fun bindUpdateProductUseCase(useCaseImpl: UpdateProductUseCaseImpl): UpdateProductUseCase
+
+    @Binds
+    fun bindUpdateProductImageUseCase(useCaseImpl: UpdateProductImageUseCaseImpl): UpdateProductImageUseCase
+
+    @Binds
+    fun bindDeleteProductImageUseCase(useCaseImpl: DeleteProductImageUseCaseImpl): DeleteProductImageUseCase
 }

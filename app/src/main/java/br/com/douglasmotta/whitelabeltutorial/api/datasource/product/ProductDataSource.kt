@@ -9,9 +9,13 @@ interface ProductDataSource {
 
     suspend fun uploadProductImage(imageUri: Uri): String
 
+    suspend fun deleteProductImage(imageId: String): Boolean
+
+    suspend fun updateProductImage(imageId: String, imageUri: Uri): String
+
     suspend fun createProduct(product: Product): Product
 
-    suspend fun deleteProduct(id: String): Boolean
+    suspend fun deleteProduct(id: String): Product
 
     suspend fun updateProduct(product: Product): Product
 

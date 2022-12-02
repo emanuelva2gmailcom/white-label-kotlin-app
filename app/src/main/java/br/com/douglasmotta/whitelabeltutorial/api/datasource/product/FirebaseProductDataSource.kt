@@ -2,13 +2,13 @@ package br.com.douglasmotta.whitelabeltutorial.api.datasource.product
 
 import android.net.Uri
 import android.util.Log
+import androidx.core.net.toUri
 import br.com.douglasmotta.whitelabeltutorial.BuildConfig
 import br.com.douglasmotta.whitelabeltutorial.domain.model.Product
 import br.com.douglasmotta.whitelabeltutorial.util.COLLECTION_PRODUCTS
 import br.com.douglasmotta.whitelabeltutorial.util.COLLECTION_ROOT
 import br.com.douglasmotta.whitelabeltutorial.util.STORAGE_IMAGES
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.storage.FirebaseStorage
 import java.util.*
 import javax.inject.Inject
@@ -62,6 +62,39 @@ class FirebaseProductDataSource @Inject constructor(
         }
     }
 
+    override suspend fun deleteProductImage(imageId: String): Boolean {
+        val imageUri = imageId.toUri().lastPathSegment!!
+
+        return suspendCoroutine { continuation ->
+            val childReference = storageReference.child(imageUri)
+
+            childReference.delete()
+                .addOnSuccessListener {
+                    continuation.resumeWith(Result.success(true))
+                }.addOnFailureListener { exception ->
+                    continuation.resumeWith(Result.failure(exception))
+                }
+        }
+    }
+
+    override suspend fun updateProductImage(imageId: String, imageUri: Uri): String {
+        return suspendCoroutine { continuation ->
+            val childReference = storageReference.child(
+                "$STORAGE_IMAGES/${BuildConfig.FIREBASE_FLAVOR_COLLECTION}/$imageId"
+            )
+
+            childReference.putFile(imageUri)
+                .addOnSuccessListener { taskSnapshot ->
+                    taskSnapshot.storage.downloadUrl.addOnSuccessListener { uri ->
+                        val path = uri.toString()
+                        continuation.resumeWith(Result.success(path))
+                    }
+                }.addOnFailureListener { exception ->
+                    continuation.resumeWith(Result.failure(exception))
+                }
+        }
+    }
+
     override suspend fun createProduct(product: Product): Product {
         return suspendCoroutine { continuation ->
             documentReference
@@ -77,7 +110,7 @@ class FirebaseProductDataSource @Inject constructor(
         }
     }
 
-    override suspend fun deleteProduct(id: String): Boolean {
+    override suspend fun deleteProduct(id: String): Product {
         return suspendCoroutine { continuation ->
             documentReference
                 .collection(COLLECTION_PRODUCTS)
@@ -89,7 +122,9 @@ class FirebaseProductDataSource @Inject constructor(
                         .document(documents.first().reference.id)
                         .delete()
                         .addOnSuccessListener {
-                            continuation.resumeWith(Result.success(true))
+                            continuation.resumeWith(
+                                Result.success(documents.first().toObject(Product::class.java))
+                            )
                         }
                         .addOnFailureListener { exception ->
                             continuation.resumeWith(Result.failure(exception))

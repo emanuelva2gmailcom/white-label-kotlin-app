@@ -43,6 +43,7 @@ class ProductsViewModel @Inject constructor(
 
     fun deleteProduct(id: String) = viewModelScope.launch {
         try {
+            Log.d("deleteimageusecase", "ViewModel")
             deleteProductUseCase(id)
             _deleteIdData.value = id
         } catch (e: Exception) {
