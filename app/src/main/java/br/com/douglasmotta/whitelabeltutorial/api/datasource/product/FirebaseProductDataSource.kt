@@ -24,6 +24,23 @@ class FirebaseProductDataSource @Inject constructor(
 
     private val storageReference = firebaseStorage.reference
 
+    override suspend fun getProductById(id: String): Product {
+        return suspendCoroutine { continuation ->
+            documentReference
+                .collection(COLLECTION_PRODUCTS)
+                .whereEqualTo("id", id)
+                .get()
+                .addOnSuccessListener { documents ->
+                    continuation.resumeWith(Result.success(
+                        documents.first().toObject(Product::class.java)
+                    ))
+                }
+                .addOnFailureListener { exception ->
+                    continuation.resumeWith(Result.failure(exception))
+                }
+        }
+    }
+
     override suspend fun getProducts(): List<Product> {
         return suspendCoroutine { continuation ->
             val productsReference = documentReference.collection(COLLECTION_PRODUCTS)
@@ -77,13 +94,14 @@ class FirebaseProductDataSource @Inject constructor(
         }
     }
 
-    override suspend fun updateProductImage(imageId: String, imageUri: Uri): String {
-        return suspendCoroutine { continuation ->
-            val childReference = storageReference.child(
-                "$STORAGE_IMAGES/${BuildConfig.FIREBASE_FLAVOR_COLLECTION}/$imageId"
-            )
+    override suspend fun updateProductImage(id: String, uri: Uri): String {
+        val product = getProductById(id)
+        val imagePath = product.imageUrl.toUri().lastPathSegment!!
 
-            childReference.putFile(imageUri)
+        return suspendCoroutine { continuation ->
+            val childReference = storageReference.child(imagePath)
+
+            childReference.putFile(uri)
                 .addOnSuccessListener { taskSnapshot ->
                     taskSnapshot.storage.downloadUrl.addOnSuccessListener { uri ->
                         val path = uri.toString()

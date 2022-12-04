@@ -8,7 +8,7 @@ class UpdateProductImageUseCaseImpl @Inject constructor(
     private val productRepository: ProductRepository
 ) : UpdateProductImageUseCase {
 
-    override suspend fun invoke(imageId: String, imageUri: Uri): String {
-        return productRepository.updateProductImage(imageId, imageUri)
+    override suspend fun invoke(id: String, uri: Uri): String {
+        return productRepository.updateProductImage(id, uri)
     }
 }

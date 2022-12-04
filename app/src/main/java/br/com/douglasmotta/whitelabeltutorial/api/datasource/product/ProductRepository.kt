@@ -21,7 +21,7 @@ class ProductRepository @Inject constructor(
     suspend fun deleteProductImage(imageId: String): Boolean =
         dataSource.deleteProductImage(imageId)
 
-    suspend fun updateProductImage(imageId: String, imageUri: Uri): String =
-        dataSource.updateProductImage(imageId, imageUri)
+    suspend fun updateProductImage(id: String, uri: Uri): String =
+        dataSource.updateProductImage(id, uri)
 
 }

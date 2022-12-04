@@ -4,5 +4,5 @@ import android.net.Uri
 
 interface UpdateProductImageUseCase {
 
-    suspend operator fun invoke(imageId: String, imageUri: Uri): String
+    suspend operator fun invoke(id: String, uri: Uri): String
 }
