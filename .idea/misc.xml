@@ -9,8 +9,9 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_add_product.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_products.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_products.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.3265625" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.27672955974842767" />
         <entry key="app/src/main/res/layout/fragment_sign_in.xml" value="0.3265625" />
         <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_update_product.xml" value="0.3265625" />

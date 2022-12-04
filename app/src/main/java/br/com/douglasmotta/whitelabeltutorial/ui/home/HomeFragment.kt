@@ -42,12 +42,6 @@ class HomeFragment : Fragment() {
     private fun setListeners() {
         with(binding) {
             mainTitle.text = "Welcome, ${viewModel.getUserEmail()}"
-
-            buttonLogout.setOnClickListener {
-                viewModel.logout()
-                val intent = Intent(context, LoginActivity::class.java)
-                startActivity(intent)
-            }
         }
     }
 
