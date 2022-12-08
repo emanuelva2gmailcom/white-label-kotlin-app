@@ -13,7 +13,8 @@ class FirebaseUserDataSource @Inject constructor(
 ) : UserDataSource {
 
     private val documentReference = firebaseFirestore
-        .collection("$COLLECTION_ROOT/${BuildConfig.FIREBASE_FLAVOR_COLLECTION}/$COLLECTION_USERS/")
+        .collection("$COLLECTION_ROOT/${BuildConfig.FIREBASE_FLAVOR_COLLECTION}/" +
+                "${BuildConfig.FIREBASE_FLAVOR_AUTH_COLLECTION}/")
 
     override suspend fun getProfile(uid: String): User {
         return suspendCoroutine { continuation ->
@@ -29,15 +30,19 @@ class FirebaseUserDataSource @Inject constructor(
         }
     }
 
-    override fun createUser(user: User): User {
-        val task = documentReference
-            .document(user.uid)
-            .set(user)
+    override suspend fun createUser(user: User): User {
+        return suspendCoroutine { continuation ->
+            documentReference
+                .document(user.uid)
+                .set(user)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        continuation.resumeWith(Result.success(user))
+                    } else {
+                        continuation.resumeWith(Result.failure(task.exception!!))
+                    }
+                }
 
-        if (task.isSuccessful) {
-            return user
-        } else {
-            throw task.exception!!
         }
     }
 }

@@ -2,6 +2,7 @@ package br.com.douglasmotta.whitelabeltutorial.api.auth
 
 import br.com.douglasmotta.whitelabeltutorial.domain.model.LoggedInUser
 import br.com.douglasmotta.whitelabeltutorial.domain.model.SignInForm
+import br.com.douglasmotta.whitelabeltutorial.domain.model.SignUpForm
 import com.google.firebase.auth.FirebaseUser
 import javax.inject.Inject
 class AuthRepository @Inject constructor(
@@ -26,8 +27,8 @@ class AuthRepository @Inject constructor(
         // @see https://developer.android.com/training/articles/keystore
     }
 
-    suspend fun signIn(email: String, password: String): Result<LoggedInUser> {
-        val result = authService.singIn(email, password)
+    suspend fun signIn(form: SignInForm): Result<LoggedInUser> {
+        val result = authService.singIn(form)
 
         if (result is Result.Success) {
             setLoggedInUser(result.data)
@@ -36,8 +37,8 @@ class AuthRepository @Inject constructor(
         return result
     }
 
-    fun createUserWithEmailAndPassword(user: SignInForm) =
-        authService.createUserWithEmailAndPassword(user)
+    suspend fun signUp(form: SignUpForm) =
+        authService.signUp(form)
 
     fun getUser(): FirebaseUser = authService.getUser()
 

@@ -13,10 +13,12 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import br.com.douglasmotta.whitelabeltutorial.R
 import br.com.douglasmotta.whitelabeltutorial.databinding.ActivityLoginBinding
 import br.com.douglasmotta.whitelabeltutorial.ui.login.models.LoggedInUserView
 import br.com.douglasmotta.whitelabeltutorial.ui.product.MainActivity
+import br.com.douglasmotta.whitelabeltutorial.ui.signUp.SignUpActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -58,6 +60,7 @@ class LoginActivity : AppCompatActivity() {
             loading.visibility = View.GONE
             if (loginResult.error != null) {
                 showLoginFailed(loginResult.error)
+                return@Observer
             }
             if (loginResult.success != null) {
                 updateUiWithUser(loginResult.success)
@@ -75,6 +78,12 @@ class LoginActivity : AppCompatActivity() {
                 username.text.toString(),
                 password.text.toString()
             )
+        }
+
+        binding.signUpLink?.setOnClickListener {
+            finish()
+            val intent = Intent(this@LoginActivity, SignUpActivity::class.java)
+            startActivity(intent)
         }
 
         password.apply {
@@ -100,6 +109,14 @@ class LoginActivity : AppCompatActivity() {
                 loading.visibility = View.VISIBLE
                 loginViewModel.login(username.text.toString(), password.text.toString())
             }
+        }
+
+        observeVMEvents()
+    }
+
+    private fun observeVMEvents() {
+        with(binding) {
+            layoutSignUpLink?.visibility = loginViewModel.authVariableVisibility.value!!
         }
     }
 

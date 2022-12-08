@@ -39,7 +39,6 @@ class ProductsAdapter(
                 fabDel.visibility = viewModel.addMutableVisibilityData.value!!
                 fabUpdate.visibility = viewModel.addMutableVisibilityData.value!!
 
-
                 fabDel.setOnClickListener {
                     viewModel.deleteProduct(product.id)
                 }

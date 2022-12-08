@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import br.com.douglasmotta.whitelabeltutorial.api.auth.Result
 
 import br.com.douglasmotta.whitelabeltutorial.R
+import br.com.douglasmotta.whitelabeltutorial.config.Config
+import br.com.douglasmotta.whitelabeltutorial.domain.model.SignInForm
 import br.com.douglasmotta.whitelabeltutorial.domain.usecase.auth.SignInUseCase
 import br.com.douglasmotta.whitelabeltutorial.ui.login.models.LoggedInUserView
 import br.com.douglasmotta.whitelabeltutorial.ui.login.models.LoginFormState
@@ -18,8 +20,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val signInUseCase: SignInUseCase
+    private val signInUseCase: SignInUseCase,
+    config: Config
 ) : ViewModel() {
+
+    private val _authVariableVisibility = MutableLiveData(config.signUpLink)
+    val authVariableVisibility: LiveData<Int> = _authVariableVisibility
 
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
@@ -27,9 +33,9 @@ class LoginViewModel @Inject constructor(
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
-    fun login(username: String, password: String) = viewModelScope.launch {
+    fun login(email: String, password: String) = viewModelScope.launch {
 
-        val result = signInUseCase(username, password)
+        val result = signInUseCase(SignInForm(email, password))
 
         if (result is Result.Success) {
             _loginResult.value =
@@ -39,8 +45,8 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun loginDataChanged(username: String, password: String) {
-        if (!isUserNameValid(username)) {
+    fun loginDataChanged(email: String, password: String) {
+        if (!isEmailValid(email)) {
             _loginForm.value = LoginFormState(usernameError = R.string.invalid_username)
         } else if (!isPasswordValid(password)) {
             _loginForm.value = LoginFormState(passwordError = R.string.invalid_password)
@@ -50,11 +56,11 @@ class LoginViewModel @Inject constructor(
     }
 
     // A placeholder username validation check
-    private fun isUserNameValid(username: String): Boolean {
-        return if (username.contains('@')) {
-            Patterns.EMAIL_ADDRESS.matcher(username).matches()
+    private fun isEmailValid(email: String): Boolean {
+        return if (email.contains('@')) {
+            Patterns.EMAIL_ADDRESS.matcher(email).matches()
         } else {
-            username.isNotBlank()
+            email.isNotBlank()
         }
     }
 

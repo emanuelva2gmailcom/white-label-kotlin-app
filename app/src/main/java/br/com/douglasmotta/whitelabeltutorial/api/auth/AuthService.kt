@@ -2,16 +2,14 @@ package br.com.douglasmotta.whitelabeltutorial.api.auth
 
 import br.com.douglasmotta.whitelabeltutorial.domain.model.LoggedInUser
 import br.com.douglasmotta.whitelabeltutorial.domain.model.SignInForm
-import br.com.douglasmotta.whitelabeltutorial.domain.model.User
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
+import br.com.douglasmotta.whitelabeltutorial.domain.model.SignUpForm
 import com.google.firebase.auth.FirebaseUser
 
 interface AuthService {
 
-    suspend fun singIn(email: String, password: String): Result<LoggedInUser>
+    suspend fun singIn(form: SignInForm): Result<LoggedInUser>
 
-    fun createUserWithEmailAndPassword(user: SignInForm)
+    suspend fun signUp(form: SignUpForm)
 
     fun getUser(): FirebaseUser
 

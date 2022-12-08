@@ -58,11 +58,15 @@ android {
         client {
             dimension 'side'
             manifestPlaceholders.appNameSuffix = ""
+
+            buildConfigField "String", "FIREBASE_FLAVOR_AUTH_COLLECTION", "\"client\""
         }
         admin {
             dimension 'side'
             applicationIdSuffix '.admin'
             manifestPlaceholders.appNameSuffix = " Admin"
+
+            buildConfigField "String", "FIREBASE_FLAVOR_AUTH_COLLECTION", "\"admin\""
         }
     }
 }
@@ -79,6 +83,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
     implementation 'com.google.firebase:firebase-auth:19.2.0'
     implementation 'androidx.annotation:annotation:1.2.0'
+    implementation 'androidx.preference:preference:1.1.1'
 
     def nav_version = "2.3.5"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"

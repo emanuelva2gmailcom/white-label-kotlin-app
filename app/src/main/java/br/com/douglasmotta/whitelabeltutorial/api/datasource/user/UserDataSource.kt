@@ -6,5 +6,5 @@ interface UserDataSource {
 
     suspend fun getProfile(uid: String): User
 
-    fun createUser(user: User): User
+    suspend fun createUser(user: User): User
 }

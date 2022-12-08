@@ -4,13 +4,12 @@ import android.util.Log
 import br.com.douglasmotta.whitelabeltutorial.api.datasource.user.UserRepository
 import br.com.douglasmotta.whitelabeltutorial.domain.model.LoggedInUser
 import br.com.douglasmotta.whitelabeltutorial.domain.model.SignInForm
+import br.com.douglasmotta.whitelabeltutorial.domain.model.SignUpForm
 import br.com.douglasmotta.whitelabeltutorial.domain.model.User
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import kotlinx.coroutines.coroutineScope
 import java.io.IOException
+import java.util.*
 import javax.inject.Inject
 import kotlin.coroutines.suspendCoroutine
 
@@ -19,10 +18,10 @@ class FirebaseAuthService @Inject constructor(
     private val userRepository: UserRepository
 ) : AuthService {
 
-    override suspend fun singIn(email: String, password: String): Result<LoggedInUser> {
+    override suspend fun singIn(form: SignInForm): Result<LoggedInUser> {
         return suspendCoroutine { continuation ->
             firebaseAuth
-                .signInWithEmailAndPassword(email, password)
+                .signInWithEmailAndPassword(form.email, form.password)
                 .addOnCompleteListener {
                     Log.d("firebase auth", "complete")
                     if (it.isSuccessful) {
@@ -46,18 +45,41 @@ class FirebaseAuthService @Inject constructor(
         }
     }
 
-    override fun createUserWithEmailAndPassword(user: SignInForm) {
-        firebaseAuth.createUserWithEmailAndPassword(user.email, user.password)
-            .addOnSuccessListener {
-                it.user?.let {
-                    val user = User(
-                        uid = it.uid,
-                        email = it.email!!,
-                        admin = true,
-                    )
-                    userRepository.createUser(user)
+    private suspend fun createUserWithEmailAndPassword(user: SignUpForm): User {
+        return suspendCoroutine { continuation ->
+            firebaseAuth.createUserWithEmailAndPassword(user.email, user.password)
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        it.result!!.user?.let {
+
+                            val userReturn = User(
+                                uid = it.uid,
+                                email = it.email!!,
+                                name = user.name,
+                                username = user.username,
+                                created = Calendar.getInstance().timeInMillis,
+                                updated = Calendar.getInstance().timeInMillis
+                            )
+
+                            continuation.resumeWith(
+                                kotlin.Result.success(
+                                    userReturn
+                                )
+                            )
+                        }
+                    } else {
+                        continuation.resumeWith(kotlin.Result.failure(it.exception!!))
+                    }
                 }
-            }
+        }
+    }
+
+    override suspend fun signUp(form: SignUpForm) {
+        try {
+            val userCreated = createUserWithEmailAndPassword(form)
+
+            userRepository.createUser(userCreated)
+        } catch (e: Exception) { throw e }
     }
 
     override fun getUser(): FirebaseUser {

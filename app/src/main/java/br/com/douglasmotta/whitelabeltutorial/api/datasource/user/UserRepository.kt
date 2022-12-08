@@ -9,5 +9,5 @@ class UserRepository @Inject constructor(
 
     suspend fun getProfile(uid: String): User = dataSource.getProfile(uid)
 
-    fun createUser(user: User): User = dataSource.createUser(user)
+    suspend fun createUser(user: User): User = dataSource.createUser(user)
 }

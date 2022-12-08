@@ -6,4 +6,5 @@ import javax.inject.Inject
 class ConfigImpl @Inject constructor(): Config {
 
     override val addButtonBoolean: Int = View.VISIBLE
+    override val signUpLink: Int = View.GONE
 }
