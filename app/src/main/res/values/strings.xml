@@ -34,6 +34,10 @@
     <string name="title_activity_sign_up">Register</string>
     <string name="title_activity_login">Login</string>
 
+    <string name="main_toolBar_home">Home</string>
+    <string name="main_toolBar_products">Products</string>
+    <string name="main_toolBar_settings">Settings</string>
+
     <string name="prompt_name">Name</string>
     <string name="prompt_username">Username</string>
     <string name="prompt_email">Email</string>

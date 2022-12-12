@@ -3,9 +3,16 @@ package br.com.douglasmotta.whitelabeltutorial.ui.product
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.MenuItem
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleObserver
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.onNavDestinationSelected
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import br.com.douglasmotta.whitelabeltutorial.R
 import br.com.douglasmotta.whitelabeltutorial.databinding.ActivityMainBinding
@@ -27,22 +34,9 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
 
         navController = navHostFragment.navController
-        appBarConfiguration = AppBarConfiguration(navController.graph)
+        binding.bottomNavigationView.setupWithNavController(navController)
 
-        replaceFragment(R.id.homeFragment)
-        binding.bottomNavigationView.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.home_navitem -> replaceFragment(R.id.homeFragment)
-                R.id.products_navitem -> replaceFragment(R.id.productsFragment)
-                R.id.settings_navitem -> replaceFragment(R.id.settingsFragment)
-            }
-            true
-        }
-
+        appBarConfiguration = AppBarConfiguration(binding.bottomNavigationView.menu)
         binding.toolbarMain.setupWithNavController(navController, appBarConfiguration)
-    }
-
-    private fun replaceFragment(fragmentId: Int) {
-        navController.navigate(fragmentId)
     }
 }

@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/productsFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="br.com.douglasmotta.whitelabeltutorial.ui.home.HomeFragment"
-        android:label="@string/products_screen_title"
+        android:label="@string/main_toolBar_home"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_HomeFragment_to_ProductsFragment"
@@ -18,13 +18,13 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="br.com.douglasmotta.whitelabeltutorial.ui.settings.SettingsFragment"
-        android:label="@string/products_screen_title"
+        android:label="@string/main_toolBar_settings"
         tools:layout="@layout/fragment_settings" />
 
     <fragment
         android:id="@+id/productsFragment"
         android:name="br.com.douglasmotta.whitelabeltutorial.ui.product.listproducts.ProductsFragment"
-        android:label="@string/products_screen_title"
+        android:label="@string/main_toolBar_products"
         tools:layout="@layout/fragment_products" >
         <action
             android:id="@+id/action_productsFragment_to_addProductFragment"

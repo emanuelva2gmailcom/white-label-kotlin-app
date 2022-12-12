@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Home"
-        android:id="@+id/home_navitem"
+    <item
+        android:title="Home"
+        android:id="@+id/homeFragment"
         android:icon="@drawable/ic_home"/>
-    <item android:title="Products"
-        android:id="@+id/products_navitem"
+    <item
+        android:title="Products"
+        android:id="@+id/productsFragment"
         android:icon="@drawable/ic_shopping_cart"/>
-    <item android:title="Settings"
-        android:id="@+id/settings_navitem"
+    <item
+        android:title="Settings"
+        android:id="@+id/settingsFragment"
         android:icon="@drawable/ic_person"/>
 </menu>
