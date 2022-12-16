@@ -1,9 +1,8 @@
 package br.com.douglasmotta.whitelabeltutorial.domain.usecase.auth
 
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
+import br.com.douglasmotta.whitelabeltutorial.domain.model.SignUpForm
 
 interface SignUpUseCase {
 
-    operator fun invoke(email: String, password: String): Task<AuthResult>
+    suspend operator fun invoke(form: SignUpForm)
 }

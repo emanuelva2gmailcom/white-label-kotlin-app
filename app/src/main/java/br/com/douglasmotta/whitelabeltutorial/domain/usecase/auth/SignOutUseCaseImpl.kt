@@ -1,6 +1,6 @@
 package br.com.douglasmotta.whitelabeltutorial.domain.usecase.auth
 
-import br.com.douglasmotta.whitelabeltutorial.data.AuthRepository
+import br.com.douglasmotta.whitelabeltutorial.api.auth.AuthRepository
 import javax.inject.Inject
 
 class SignOutUseCaseImpl @Inject constructor(
