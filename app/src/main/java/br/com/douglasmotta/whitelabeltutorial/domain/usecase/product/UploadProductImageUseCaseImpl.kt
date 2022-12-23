@@ -1,7 +1,7 @@
 package br.com.douglasmotta.whitelabeltutorial.domain.usecase.product
 
 import android.net.Uri
-import br.com.douglasmotta.whitelabeltutorial.api.datasource.product.ProductRepository
+import br.com.douglasmotta.whitelabeltutorial.api.repository.ProductRepository
 import javax.inject.Inject
 
 class UploadProductImageUseCaseImpl @Inject constructor(

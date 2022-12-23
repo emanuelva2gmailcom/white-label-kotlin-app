@@ -1,5 +1,7 @@
 <resources>
     <!-- ProductsFragment -->
+    <string name="error_message_getProducts">Ocorreu um problema ao tentar carregar os produtos</string>
+    <string name="error_message_deleteProduct">Ocorreu um problema ao tentar deletar os produtos</string>
     <string name="products_fab_add_product">Add product</string>
     <string name="products_fab_update_product">Edit product</string>
     <string name="products_fab_delete_product">Delete product</string>

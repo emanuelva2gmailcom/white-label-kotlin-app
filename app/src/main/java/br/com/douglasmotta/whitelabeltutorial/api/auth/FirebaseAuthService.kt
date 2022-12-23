@@ -1,7 +1,7 @@
 package br.com.douglasmotta.whitelabeltutorial.api.auth
 
 import android.util.Log
-import br.com.douglasmotta.whitelabeltutorial.api.datasource.user.UserRepository
+import br.com.douglasmotta.whitelabeltutorial.api.repository.UserRepository
 import br.com.douglasmotta.whitelabeltutorial.domain.model.LoggedInUser
 import br.com.douglasmotta.whitelabeltutorial.domain.model.SignInForm
 import br.com.douglasmotta.whitelabeltutorial.domain.model.SignUpForm
