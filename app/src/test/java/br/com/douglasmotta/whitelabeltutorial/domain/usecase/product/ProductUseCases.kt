@@ -3,17 +3,17 @@ package br.com.douglasmotta.whitelabeltutorial.domain.usecase.product
 import br.com.douglasmotta.whitelabeltutorial.api.datasource.SuccessFakeProductDataSource
 import br.com.douglasmotta.whitelabeltutorial.api.repository.ProductRepository
 
-class ProductUseCases(
-    private val repository: ProductRepository
+class ProductUseCases constructor(
+    repository: ProductRepository
 ) {
 
     val getProductUseCase = GetProductUseCaseImpl(repository)
 
-    val uploadProductImageUseCase = UploadProductImageUseCaseImpl(repository)
+    private val uploadProductImageUseCase = UploadProductImageUseCaseImpl(repository)
 
-    val updateProductImageUseCase = UpdateProductImageUseCaseImpl(repository)
+    private val updateProductImageUseCase = UpdateProductImageUseCaseImpl(repository)
 
-    val deleteProductImageUseCase = DeleteProductImageUseCaseImpl(repository)
+    private val deleteProductImageUseCase = DeleteProductImageUseCaseImpl(repository)
 
     val createProductUseCase = CreateProductUseCaseImpl(uploadProductImageUseCase, repository)
 
