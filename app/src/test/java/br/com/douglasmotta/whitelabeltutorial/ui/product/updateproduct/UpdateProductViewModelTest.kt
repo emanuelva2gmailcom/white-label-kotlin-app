@@ -1,4 +1,4 @@
-package br.com.douglasmotta.whitelabeltutorial.ui.product.addproduct
+package br.com.douglasmotta.whitelabeltutorial.ui.product.updateproduct
 
 import br.com.douglasmotta.whitelabeltutorial.R
 import br.com.douglasmotta.whitelabeltutorial.api.datasource.FailureFakeProductDataSource
@@ -11,11 +11,10 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
-class AddProductViewModelTest: CoroutineTestCase() {
+class UpdateProductViewModelTest: CoroutineTestCase() {
+    lateinit var viewModelFailureTest: UpdateProductViewModel
 
-    lateinit var viewModelFailureTest: AddProductViewModel
-
-    lateinit var viewModelSuccessTest: AddProductViewModel
+    lateinit var viewModelSuccessTest: UpdateProductViewModel
 
     @Before
     fun setupSuccessViewModel() {
@@ -25,7 +24,7 @@ class AddProductViewModelTest: CoroutineTestCase() {
             )
         )
 
-        viewModelSuccessTest = AddProductViewModel(useCases.createProductUseCase)
+        viewModelSuccessTest = UpdateProductViewModel(useCases.updateProductUseCase)
     }
 
     @Before
@@ -36,30 +35,32 @@ class AddProductViewModelTest: CoroutineTestCase() {
             )
         )
 
-        viewModelFailureTest = AddProductViewModel(useCases.createProductUseCase)
+        viewModelFailureTest = UpdateProductViewModel(useCases.updateProductUseCase)
     }
 
 
     @Test
-    fun `when view model createProduct get success then sets productCreatedLiveData`() = runBlocking {
+    fun `when view model updateProduct get success then sets productUpdatedLiveData`() = runBlocking {
 
         // Act
-        viewModelSuccessTest.createProduct(
+        viewModelSuccessTest.updateProduct(
+            PRODUCT1_REF.id,
             PRODUCT1_REF.description,
             PRODUCT1_REF.price.toCurrency(),
             PRODUCT_IMAGE_URI_REF
         )
 
         // Assert
-        Assert.assertEquals(viewModelSuccessTest.productCreated.getOrAwaitValue(), PRODUCT1_REF)
+        Assert.assertEquals(viewModelSuccessTest.productUpdated.getOrAwaitValue(), PRODUCT1_REF)
     }
 
     @Test
-    fun `when view model createProduct get failure then sets productCreateErrorResIdLiveData`() =
+    fun `when view model updateProduct get failure then sets productUpdateErrorResIdLiveData`() =
         runBlocking {
 
             // Act
-            viewModelFailureTest.createProduct(
+            viewModelFailureTest.updateProduct(
+                PRODUCT1_REF.id,
                 PRODUCT1_REF.description,
                 PRODUCT1_REF.price.toCurrency(),
                 PRODUCT_IMAGE_URI_REF
@@ -67,35 +68,18 @@ class AddProductViewModelTest: CoroutineTestCase() {
 
             // Assert
             Assert.assertEquals(
-                viewModelFailureTest.productCreateErrorResId.getOrAwaitValue(),
-                R.string.error_message_addProduct
+                viewModelFailureTest.productUpdateErrorResId.getOrAwaitValue(),
+                R.string.error_message_updateProduct
             )
         }
 
     @Test
-    fun `when view model createProduct get empty error in imageUri then sets imageUriErrorResIdLiveData`()
+    fun `when view model updateProduct get empty error in description then sets descriptionFieldErrorResIdLiveData`()
         = runBlocking {
 
             // Act
-            viewModelFailureTest.createProduct(
-                PRODUCT1_REF.description,
-                PRODUCT1_REF.price.toCurrency(),
-                null
-            )
-
-            // Assert
-            Assert.assertEquals(
-                viewModelFailureTest.imageUriErrorResId.getOrAwaitValue(),
-                R.drawable.background_product_image_error
-            )
-        }
-
-    @Test
-    fun `when view model createProduct get empty error in description then sets descriptionFieldErrorResIdLiveData`()
-        = runBlocking {
-
-            // Act
-            viewModelFailureTest.createProduct(
+            viewModelFailureTest.updateProduct(
+                PRODUCT1_REF.id,
                 "",
                 PRODUCT1_REF.price.toCurrency(),
                 PRODUCT_IMAGE_URI_REF
@@ -109,11 +93,12 @@ class AddProductViewModelTest: CoroutineTestCase() {
         }
 
     @Test
-    fun `when view model createProduct get empty error in price then sets priceFieldErrorResIdLiveData`()
+    fun `when view model updateProduct get empty error in price then sets priceFieldErrorResIdLiveData`()
         = runBlocking {
 
             // Act
-            viewModelFailureTest.createProduct(
+            viewModelFailureTest.updateProduct(
+                PRODUCT1_REF.id,
                 PRODUCT1_REF.description,
                 "",
                 PRODUCT_IMAGE_URI_REF

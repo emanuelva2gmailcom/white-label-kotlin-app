@@ -10,13 +10,7 @@ import br.com.douglasmotta.whitelabeltutorial.util.*
 import kotlinx.coroutines.runBlocking
 import org.junit.*
 
-class ProductsViewModelTests {
-
-    @get:Rule
-    val mainCoroutineRule = MainCoroutineRule()
-
-    @get:Rule
-    var instantExecutorRule = InstantTaskExecutorRule()
+class ProductsViewModelTests: CoroutineTestCase() {
 
     private var config = ConfigTest()
 
