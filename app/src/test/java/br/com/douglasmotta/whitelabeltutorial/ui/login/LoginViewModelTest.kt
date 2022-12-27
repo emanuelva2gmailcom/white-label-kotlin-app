@@ -1,6 +1,5 @@
 package br.com.douglasmotta.whitelabeltutorial.ui.login
 
-import android.util.Patterns
 import br.com.douglasmotta.whitelabeltutorial.R
 import br.com.douglasmotta.whitelabeltutorial.api.auth.AuthRepository
 import br.com.douglasmotta.whitelabeltutorial.api.auth.FailureFakeAuthService

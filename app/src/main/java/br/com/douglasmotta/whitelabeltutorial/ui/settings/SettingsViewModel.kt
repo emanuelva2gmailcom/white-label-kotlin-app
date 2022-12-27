@@ -13,15 +13,15 @@ class SettingsViewModel @Inject constructor(
     private val signOutUseCase: SignOutUseCase
 ) : ViewModel() {
 
-    private val _errorResultData = MutableLiveData<Result<Boolean>>()
-    val errorResultData: LiveData<Result<Boolean>> = _errorResultData
+    private val _resultData = MutableLiveData<Result<Boolean>>()
+    val resultData: LiveData<Result<Boolean>> = _resultData
 
     fun logout() {
         try {
             signOutUseCase()
-            _errorResultData.value = Result.Success(true)
+            _resultData.value = Result.Success(true)
         } catch (e: Exception) {
-            _errorResultData.value = Result.Error(e)
+            _resultData.value = Result.Error(e)
         }
     }
 }

@@ -38,7 +38,7 @@ class SettingsFragment : Fragment() {
     }
 
     private fun observeVMEvents() {
-        viewModel.errorResultData.observe(viewLifecycleOwner) { result ->
+        viewModel.resultData.observe(viewLifecycleOwner) { result ->
             if (result is Result.Success) {
                 val intent = Intent(context, LoginActivity::class.java)
                 startActivity(intent)
