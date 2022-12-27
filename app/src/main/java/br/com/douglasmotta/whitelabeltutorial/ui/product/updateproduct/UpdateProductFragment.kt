@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -65,6 +66,12 @@ class UpdateProductFragment : BottomSheetDialogFragment() {
 
         viewModel.priceFieldErrorResId.observe(viewLifecycleOwner) { stringResId ->
             binding.inputLayoutPrice.setError(stringResId)
+        }
+
+        viewModel.productUpdateErrorResId.observe(viewLifecycleOwner) { resId ->
+            resId?.let {
+                Toast.makeText(activity, getString(resId), Toast.LENGTH_SHORT).show()
+            }
         }
 
         viewModel.productUpdated.observe(viewLifecycleOwner) { product ->

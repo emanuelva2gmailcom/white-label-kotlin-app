@@ -1,6 +1,6 @@
 package br.com.douglasmotta.whitelabeltutorial.domain.usecase.product
 
-import br.com.douglasmotta.whitelabeltutorial.api.datasource.product.ProductRepository
+import br.com.douglasmotta.whitelabeltutorial.api.repository.ProductRepository
 import br.com.douglasmotta.whitelabeltutorial.domain.model.Product
 import javax.inject.Inject
 

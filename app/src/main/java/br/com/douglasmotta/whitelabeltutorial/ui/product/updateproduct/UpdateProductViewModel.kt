@@ -28,6 +28,9 @@ class UpdateProductViewModel @Inject constructor(
     private val _priceFieldErrorResId = MutableLiveData<Int?>()
     val priceFieldErrorResId: LiveData<Int?> = _priceFieldErrorResId
 
+    private val _productUpdateErrorResId = MutableLiveData<Int?>()
+    val productUpdateErrorResId: LiveData<Int?> = _productUpdateErrorResId
+
     private val _productUpdated = MutableLiveData<Product>()
     val productUpdated: LiveData<Product> = _productUpdated
 
@@ -44,7 +47,7 @@ class UpdateProductViewModel @Inject constructor(
                 val product = updateProductUseCase(id, description, price.fromCurrency(), imageUri)
                 _productUpdated.value = product
             } catch (e: Exception) {
-                Log.d("updateProduct", e.toString())
+                _productUpdateErrorResId.value = R.string.error_message_updateProduct
             }
         }
     }
@@ -54,12 +57,5 @@ class UpdateProductViewModel @Inject constructor(
             isFormValid = false
             R.string.add_product_field_error
         } else null
-    }
-
-    private fun getDrawableResIdIfNull(value: Uri?): Int {
-        return if (value == null) {
-            isFormValid = false
-            R.drawable.background_product_image_error
-        } else R.drawable.background_product_image
     }
 }

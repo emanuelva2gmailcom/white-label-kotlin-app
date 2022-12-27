@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -66,6 +67,12 @@ class AddProductFragment : BottomSheetDialogFragment() {
                 popBackStack()
             }
         }
+
+        viewModel.productCreateErrorResId.observe(viewLifecycleOwner) { resId ->
+            resId?.let {
+                Toast.makeText(activity, getString(resId), Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun TextInputLayout.setError(stringResId: Int?) {
@@ -83,7 +90,7 @@ class AddProductFragment : BottomSheetDialogFragment() {
             val description = binding.inputDescription.text.toString()
             val price = binding.inputPrice.text.toString()
 
-            viewModel.createProduct(description, price, imageuri!!)
+            viewModel.createProduct(description, price, imageuri)
         }
 
         binding.inputPrice.run {

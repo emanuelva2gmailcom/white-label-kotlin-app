@@ -1,8 +1,7 @@
 package br.com.douglasmotta.whitelabeltutorial.domain.usecase.product
 
 import android.util.Log
-import androidx.core.net.toUri
-import br.com.douglasmotta.whitelabeltutorial.api.datasource.product.ProductRepository
+import br.com.douglasmotta.whitelabeltutorial.api.repository.ProductRepository
 import br.com.douglasmotta.whitelabeltutorial.domain.model.Product
 import javax.inject.Inject
 

@@ -10,6 +10,7 @@ import br.com.douglasmotta.whitelabeltutorial.util.COLLECTION_ROOT
 import br.com.douglasmotta.whitelabeltutorial.util.STORAGE_IMAGES
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import java.lang.Exception
 import java.util.*
 import javax.inject.Inject
 import kotlin.coroutines.suspendCoroutine

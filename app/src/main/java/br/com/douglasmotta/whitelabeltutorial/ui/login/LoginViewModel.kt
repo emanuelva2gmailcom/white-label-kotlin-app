@@ -14,6 +14,7 @@ import br.com.douglasmotta.whitelabeltutorial.domain.usecase.auth.SignInUseCase
 import br.com.douglasmotta.whitelabeltutorial.ui.login.models.LoggedInUserView
 import br.com.douglasmotta.whitelabeltutorial.ui.login.models.LoginFormState
 import br.com.douglasmotta.whitelabeltutorial.ui.login.models.LoginResult
+import br.com.douglasmotta.whitelabeltutorial.util.EMAIL_ADDRESS_REGEX
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -46,10 +47,13 @@ class LoginViewModel @Inject constructor(
     }
 
     fun loginDataChanged(email: String, password: String) {
+        println("entry")
         if (!isEmailValid(email)) {
             _loginForm.value = LoginFormState(usernameError = R.string.invalid_username)
+            println(email)
         } else if (!isPasswordValid(password)) {
             _loginForm.value = LoginFormState(passwordError = R.string.invalid_password)
+            println("password")
         } else {
             _loginForm.value = LoginFormState(isDataValid = true)
         }
@@ -57,15 +61,13 @@ class LoginViewModel @Inject constructor(
 
     // A placeholder username validation check
     private fun isEmailValid(email: String): Boolean {
-        return if (email.contains('@')) {
-            Patterns.EMAIL_ADDRESS.matcher(email).matches()
-        } else {
-            email.isNotBlank()
-        }
+        return if (email.isNotEmpty()) {
+            email.matches(EMAIL_ADDRESS_REGEX)
+        } else false
     }
 
     // A placeholder password validation check
     private fun isPasswordValid(password: String): Boolean {
-        return password.length < 10
+        return password.length < 10 && password.isNotEmpty()
     }
 }

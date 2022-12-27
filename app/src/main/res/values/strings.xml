@@ -1,11 +1,21 @@
 <resources>
+
+    <!-- Default -->
+    <string name="error_message_default">Ocorreu um erro ao tentar carregar as informações</string>
+
+    <!-- Home -->
+    <string name="welcome_message">Bem vindo, :name!</string>
+
     <!-- ProductsFragment -->
+    <string name="error_message_getProducts">Ocorreu um problema ao tentar carregar os produtos</string>
+    <string name="error_message_deleteProduct">Ocorreu um problema ao tentar deletar este produto</string>
     <string name="products_fab_add_product">Add product</string>
     <string name="products_fab_update_product">Edit product</string>
     <string name="products_fab_delete_product">Delete product</string>
     <string name="link_list_of_product">Show all products</string>
 
     <!-- AddProductFragment -->
+    <string name="error_message_addProduct">Ocorreu um problema ao tentar adicionar este produto</string>
     <string name="add_product_screen_title">Add Product</string>
     <string name="add_product_field_description_hint">Description</string>
     <string name="add_product_field_price_hint">Price</string>
@@ -13,6 +23,7 @@
     <string name="add_product_button_add_product">Add</string>
 
     <!-- UpdateProductFragment -->
+    <string name="error_message_updateProduct">Ocorreu um problema ao tentar editar este produto</string>
     <string name="update_product_screen_title">Edit Product</string>
     <string name="update_product_field_description_hint">Description</string>
     <string name="update_product_field_price_hint">Price</string>

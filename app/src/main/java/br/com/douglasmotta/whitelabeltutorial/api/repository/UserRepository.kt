@@ -1,5 +1,6 @@
-package br.com.douglasmotta.whitelabeltutorial.api.datasource.user
+package br.com.douglasmotta.whitelabeltutorial.api.repository
 
+import br.com.douglasmotta.whitelabeltutorial.api.datasource.user.UserDataSource
 import br.com.douglasmotta.whitelabeltutorial.domain.model.User
 import javax.inject.Inject
 

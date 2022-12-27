@@ -14,6 +14,7 @@ import br.com.douglasmotta.whitelabeltutorial.ui.login.models.LoginFormState
 import br.com.douglasmotta.whitelabeltutorial.ui.login.models.LoginResult
 import br.com.douglasmotta.whitelabeltutorial.ui.signUp.models.SignUpFormState
 import br.com.douglasmotta.whitelabeltutorial.ui.signUp.models.SignUpResult
+import br.com.douglasmotta.whitelabeltutorial.util.EMAIL_ADDRESS_REGEX
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -30,14 +31,11 @@ class SignUpViewModel @Inject constructor(
     val signUpResult: LiveData<SignUpResult> = _signUpResult
 
     fun signUp(form: SignUpForm) = viewModelScope.launch{
-
         try {
-            Log.d("ErroDoSignUp", form.toString())
             signUpUseCase(form)
             _signUpResult.value = SignUpResult(success = true)
         } catch (e: Exception) {
             _signUpResult.value = SignUpResult(error = R.string.signUp_failed)
-            Log.e("ErroDoSignUp", null, e)
         }
     }
 
@@ -72,11 +70,9 @@ class SignUpViewModel @Inject constructor(
 
     // A placeholder email validation check
     private fun isEmailValid(email: String): Boolean {
-        return if (email.contains('@')) {
-            Patterns.EMAIL_ADDRESS.matcher(email).matches()
-        } else {
-            email.isNotBlank()
-        }
+        return if (email.isNotEmpty()) {
+            email.matches(EMAIL_ADDRESS_REGEX)
+        } else false
     }
 
     // A placeholder password validation check

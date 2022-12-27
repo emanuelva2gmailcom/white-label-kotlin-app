@@ -3,6 +3,7 @@ package br.com.douglasmotta.whitelabeltutorial.api.auth
 import br.com.douglasmotta.whitelabeltutorial.domain.model.LoggedInUser
 import br.com.douglasmotta.whitelabeltutorial.domain.model.SignInForm
 import br.com.douglasmotta.whitelabeltutorial.domain.model.SignUpForm
+import br.com.douglasmotta.whitelabeltutorial.domain.model.UserAuth
 import com.google.firebase.auth.FirebaseUser
 import javax.inject.Inject
 class AuthRepository @Inject constructor(
@@ -40,7 +41,7 @@ class AuthRepository @Inject constructor(
     suspend fun signUp(form: SignUpForm) =
         authService.signUp(form)
 
-    fun getUser(): FirebaseUser = authService.getUser()
+    fun getUser(): UserAuth = authService.getUser()
 
     fun signOut() {
         user = null
