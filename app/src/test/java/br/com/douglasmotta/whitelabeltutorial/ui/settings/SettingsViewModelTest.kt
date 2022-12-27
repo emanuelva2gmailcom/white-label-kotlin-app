@@ -7,6 +7,7 @@ import br.com.douglasmotta.whitelabeltutorial.domain.usecase.auth.SignOutUseCase
 import br.com.douglasmotta.whitelabeltutorial.util.CoroutineTestCase
 import br.com.douglasmotta.whitelabeltutorial.util.Result
 import br.com.douglasmotta.whitelabeltutorial.util.getOrAwaitValue
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -44,7 +45,7 @@ class SettingsViewModelTest: CoroutineTestCase() {
     }
 
     @Test
-    fun `when function logout get success then sets resultLiveData`() {
+    fun `when function logout get success then sets resultLiveData`() = runBlocking{
         // when
         viewModelSuccessTest.logout()
 
@@ -55,7 +56,7 @@ class SettingsViewModelTest: CoroutineTestCase() {
     }
 
     @Test
-    fun `when function logout get failure then sets resultLiveData`() {
+    fun `when function logout get failure then sets resultLiveData`() = runBlocking{
         // when
         viewModelFailureTest.logout()
 
