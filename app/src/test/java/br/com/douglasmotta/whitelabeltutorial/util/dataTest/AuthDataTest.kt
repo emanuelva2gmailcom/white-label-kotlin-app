@@ -6,9 +6,13 @@ import br.com.douglasmotta.whitelabeltutorial.ui.login.models.LoggedInUserView
 import br.com.douglasmotta.whitelabeltutorial.ui.login.models.LoginResult
 
 
-const val USER_AUTH_EMAIL_TEST = "emailvalid@gmail.com"
-
 const val USER_AUTH_UID_TEST = "1"
+
+const val USER_AUTH_NAME_TEST = "name"
+
+const val USER_AUTH_USERNAME_TEST = "username"
+
+const val USER_AUTH_EMAIL_TEST = "emailvalid@gmail.com"
 
 const val USER_AUTH_PASSWORD_TEST = "12345678"
 
