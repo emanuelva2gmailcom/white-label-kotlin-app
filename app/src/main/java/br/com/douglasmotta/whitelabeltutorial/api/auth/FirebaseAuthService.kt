@@ -2,10 +2,7 @@ package br.com.douglasmotta.whitelabeltutorial.api.auth
 
 import android.util.Log
 import br.com.douglasmotta.whitelabeltutorial.api.repository.UserRepository
-import br.com.douglasmotta.whitelabeltutorial.domain.model.LoggedInUser
-import br.com.douglasmotta.whitelabeltutorial.domain.model.SignInForm
-import br.com.douglasmotta.whitelabeltutorial.domain.model.SignUpForm
-import br.com.douglasmotta.whitelabeltutorial.domain.model.User
+import br.com.douglasmotta.whitelabeltutorial.domain.model.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import java.io.IOException
@@ -82,8 +79,12 @@ class FirebaseAuthService @Inject constructor(
         } catch (e: Exception) { throw e }
     }
 
-    override fun getUser(): FirebaseUser {
-        return firebaseAuth.currentUser!!
+    override fun getUser(): UserAuth {
+        val user = firebaseAuth.currentUser!!
+        return UserAuth(
+            uid = user.uid,
+            email = user.email!!
+        )
     }
 
     override fun signOut() {

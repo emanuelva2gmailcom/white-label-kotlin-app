@@ -12,6 +12,6 @@ class HomeViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     fun getUserEmail(): String {
-        return getUserAuthUseCase().email!!
+        return getUserAuthUseCase().email
     }
 }
