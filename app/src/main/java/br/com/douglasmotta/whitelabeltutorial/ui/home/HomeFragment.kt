@@ -1,15 +1,14 @@
 package br.com.douglasmotta.whitelabeltutorial.ui.home
-import android.content.Intent
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import br.com.douglasmotta.whitelabeltutorial.R
 import br.com.douglasmotta.whitelabeltutorial.databinding.FragmentHomeBinding
-import br.com.douglasmotta.whitelabeltutorial.ui.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,7 +22,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -31,7 +30,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setListeners()
+        viewModel.getUserEmail()
+        observeVMEvents()
     }
 
     override fun onDestroyView() {
@@ -39,9 +39,21 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
     }
 
-    private fun setListeners() {
+    private fun displayName(name: String) {
         with(binding) {
-            mainTitle.text = "Welcome, ${viewModel.getUserEmail()}"
+            mainTitle.text = getString(R.string.welcome_message).replace(":name", name)
+        }
+    }
+
+    private fun observeVMEvents() {
+        viewModel.errorMessageData.observe(viewLifecycleOwner) { resId ->
+            resId?.let {
+                Toast.makeText(activity, getString(resId), Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        viewModel.userInformationData.observe(viewLifecycleOwner) { name ->
+            displayName(name)
         }
     }
 
